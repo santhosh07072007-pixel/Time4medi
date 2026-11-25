@@ -1,0 +1,164 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Mobile-first responsive design */
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    font-size: 16px;
+  }
+  
+  body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    min-height: 100dvh;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    line-height: 1.5;
+  }
+  
+  * {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+  }
+  
+  /* Fix for iOS Safari viewport issues */
+  #root {
+    min-height: 100vh;
+    min-height: 100dvh;
+    width: 100%;
+    position: relative;
+    overflow-x: hidden;
+  }
+  
+  /* Prevent zoom on input focus for iOS */
+  input, select, textarea {
+    font-size: 16px !important;
+    -webkit-appearance: none;
+    border-radius: 0;
+  }
+  
+  /* Fix for mobile touch targets */
+  button, a, input, select, textarea {
+    min-height: 44px;
+    touch-action: manipulation;
+  }
+  
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  /* Fix for mobile keyboard issues */
+  .mobile-keyboard-fix {
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
+  }
+  
+  /* Mobile-specific fixes */
+  @media screen and (max-width: 768px) {
+    body {
+      font-size: 14px;
+      position: relative;
+      width: 100%;
+      min-height: 100vh;
+      min-height: 100dvh;
+      overflow-x: hidden;
+    }
+    
+    input, select, textarea, button {
+      font-size: 16px !important;
+    }
+    
+    .container {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+    
+    /* Fix modal scrolling on mobile */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    
+    /* Ensure modals are properly sized on mobile */
+    .modal-content {
+      min-height: fit-content;
+      max-height: calc(100vh - 2rem);
+      margin: 1rem;
+    }
+    
+    /* Fix keyboard issues on iOS */
+    .modal-form {
+      padding-bottom: env(keyboard-inset-height, 0px);
+    }
+  }
+}
+
+/* Custom utilities for mobile */
+@layer utilities {
+  .safe-area-inset {
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+  
+  .mobile-scroll {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+  }
+  
+  .mobile-app {
+    position: relative;
+    min-height: 100vh;
+    min-height: 100dvh;
+    width: 100%;
+    overflow-x: hidden;
+  }
+  
+  .modal-safe-area {
+    padding-bottom: max(env(safe-area-inset-bottom), env(keyboard-inset-height, 0px));
+  }
+  
+  /* Prevent body scroll when modal is open */
+  .modal-open {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+  }
+  
+  /* PWA specific styles */
+  @media (display-mode: standalone) {
+    body {
+      padding-top: env(safe-area-inset-top);
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+    
+    .pwa-header {
+      padding-top: env(safe-area-inset-top);
+    }
+  }
+  
+  /* Offline indicator styles */
+  .offline-indicator {
+    position: fixed;
+    top: env(safe-area-inset-top, 1rem);
+    right: 1rem;
+    z-index: 1000;
+  }
+}
